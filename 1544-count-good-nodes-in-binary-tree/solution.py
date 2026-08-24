@@ -4,21 +4,24 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
-
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        def dfs(node, current_max):
-            if not node:
+        def dfs(node, a):
+
+            if node is None:
                 return 0
             
             count = 0
-            if node.val >= current_max:
-                count = 1
-                current_max = node.val
 
-            left_count = dfs(node.left, current_max)
-            right_count = dfs(node.right, current_max)
+            if node.val >= a:
+                count += 1
             
-            return count + left_count + right_count
+            aa = max(node.val, a)
 
+            count += dfs(node.left, aa)
+            count += dfs(node.right, aa)
+
+            return count
         return dfs(root, root.val)
+
+            
